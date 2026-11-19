@@ -43,6 +43,8 @@ def main():
     parser.add_argument('--query',help='English text for CLIP search; no API call is used')
     parser.add_argument('--method',choices=['max','mean'],default='max')
     args=parser.parse_args()
+    if args.query is not None and not args.query.strip():
+        parser.error('--query must contain non-whitespace text')
     vectors,records=load_index()
     if args.query:
         query=text_vectors([args.query])[0]
