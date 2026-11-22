@@ -55,6 +55,16 @@ Run the selected query against the same index:
 
 `02_frames.py` rebuilds only this project's local database; rerun steps 04–05 afterward. Experiment plans refuse to change silently. Reproduction can vary at floating-point precision across hardware. Recomputed evidence may differ near ties.
 
+## Offline CLI check
+
+From the repository root, run the command-line input checks without installing ML dependencies or downloading clips, model weights, or the database:
+
+```bash
+python3.12 -m unittest -v test_search_cli
+```
+
+These three tests use stubbed model and retrieval dependencies. They check blank-query rejection, preservation of valid query options, and index access when `--query` is omitted; they do not validate retrieval quality or the generated index.
+
 ## Data and evaluation boundaries
 
 Only the bunt query has complete human judgments: 16 clips, 2 relevant. An attempted bunt counts even without contact or a successful play. The other seven query sets remain unjudged, with blank annotations intentionally preserved. Do not treat filename labels or model scores as human ground truth. `06_evaluate_human.py` is for the complete 128-pair multiquery review and intentionally rejects incomplete annotations.
